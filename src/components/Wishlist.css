@@ -1,0 +1,46 @@
+/* src/components/Wishlist.css */
+.wishlist-page {
+  padding: 20px;
+  color: white;
+}
+
+.wishlist-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+}
+
+.wishlist-card {
+  background: #1e1e1e;
+  padding: 15px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0px 2px 8px rgba(0,0,0,0.4);
+}
+
+.wishlist-card img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.wishlist-actions button {
+  margin: 5px;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.wishlist-btn {
+  background: transparent;
+  border: none;
+  font-size: 1.4rem;
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.wishlist-btn.active {
+  color: gold;
+}

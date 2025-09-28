@@ -1,0 +1,36 @@
+.support {
+  padding: 20px;
+  color: #fff;
+}
+
+.support form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 400px;
+}
+
+.support input,
+.support textarea {
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+}
+
+.support button {
+  padding: 10px;
+  background: #00c4ff;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.support button:hover {
+  background: #009acd;
+}
+
+.success {
+  color: #00ff80;
+  font-weight: bold;
+}
