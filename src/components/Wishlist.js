@@ -1,10 +1,10 @@
 import React from "react";
-import "./ProductList.css";
+import "../styles/ProductList.css";
 
 const Wishlist = ({ wishlist, toggleWishlist, addToCart }) => {
   return (
     <div className="product-list">
-      <h2>⭐ Mi Lista de Deseos</h2>
+      <h2>Mi Lista de Deseos</h2>
       {wishlist.length === 0 ? (
         <p>No tienes productos en tu wishlist.</p>
       ) : (
@@ -15,8 +15,8 @@ const Wishlist = ({ wishlist, toggleWishlist, addToCart }) => {
               <h3>{product.name}</h3>
               <p>{product.description}</p>
               <p className="product-price">${product.price}</p>
-              <button onClick={() => addToCart(product)}>🛒 Agregar al carrito</button>
-              <button onClick={() => toggleWishlist(product)}>❌ Quitar</button>
+              <button onClick={() => addToCart(product)}>🛒Agregar al carrito</button>
+              <button onClick={() => toggleWishlist(product)}>❌Quitar</button>
             </div>
           ))}
         </div>

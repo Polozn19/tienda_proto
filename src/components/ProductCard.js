@@ -6,7 +6,7 @@ const ProductCard = ({ product, onAddToCart }) => {
     if (onAddToCart) {
       onAddToCart(product);
     } else {
-      // fallback: guardar en localStorage
+      // guardar en localStorage
       const cart = JSON.parse(localStorage.getItem("cart")) || [];
       cart.push(product);
       localStorage.setItem("cart", JSON.stringify(cart));

@@ -1,0 +1,112 @@
+.banner-hero {
+  position: relative;
+  width: 100%;
+  height: 70vh;
+  overflow: hidden;
+}
+
+.banner-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Oscurecimiento */
+.banner-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 15, 15, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.banner-content {
+  text-align: center;
+  color: #fff;
+  max-width: 650px;
+  padding: 20px;
+}
+
+.banner-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.banner-subtitle {
+  font-size: 1.2rem;
+  margin-bottom: 25px;
+  color: #e0e0e0;
+}
+
+.banner-btn {
+  background: #bb86fc;
+  color: white;
+  border: none;
+  padding: 12px 26px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s;
+}
+
+.banner-btn:hover {
+  background: #9b6bd3;
+  transform: translateY(-3px);
+}
+
+/* Botones navegación */
+.banner-btn-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.4);
+  color: white;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 8px 14px;
+  border-radius: 50%;
+  transition: background 0.3s;
+}
+
+.banner-btn-nav:hover {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.banner-btn-nav.left {
+  left: 15px;
+}
+
+.banner-btn-nav.right {
+  right: 15px;
+}
+
+/* Dots */
+.banner-dots {
+  position: absolute;
+  bottom: 15px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  background: #bbb;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.dot.active {
+  background: #bb86fc;
+}

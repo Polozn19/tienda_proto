@@ -1,126 +1,136 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import ProductList from "./components/ProductList";
 import Cart from "./components/Cart";
 import Wishlist from "./components/Wishlist";
+import ProductList from "./components/ProductList";
+import BannerHero from "./components/BannerHero";
+import SupportChat from "./components/SupportChat";
+
+import "./styles/App.css";
 
 function App() {
-  // 📦 Estado del carrito (persistente en localStorage)
+  // 📦 Carrito persistente
   const [cart, setCart] = useState(() => {
-    const saved = localStorage.getItem("cart");
-    return saved ? JSON.parse(saved) : [];
+    const savedCart = localStorage.getItem("cart");
+    return savedCart ? JSON.parse(savedCart) : [];
   });
 
-  // ⭐ Estado de la wishlist (persistente en localStorage)
+  // ⭐ Wishlist persistente
   const [wishlist, setWishlist] = useState(() => {
-    const saved = localStorage.getItem("wishlist");
-    return saved ? JSON.parse(saved) : [];
+    const savedWishlist = localStorage.getItem("wishlist");
+    return savedWishlist ? JSON.parse(savedWishlist) : [];
   });
 
-  // 🔍 Estado del buscador
+  // 🔍 Búsqueda
   const [searchTerm, setSearchTerm] = useState("");
 
-  // Guardar carrito en localStorage
+  // 🌙 Modo oscuro persistente
+  const [darkMode, setDarkMode] = useState(() => {
+    const savedTheme = localStorage.getItem("darkMode");
+    return savedTheme ? JSON.parse(savedTheme) : false;
+  });
+
+  // ✅ Guardar cambios en localStorage cuando cambie el estado
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
 
-  // Guardar wishlist en localStorage
   useEffect(() => {
     localStorage.setItem("wishlist", JSON.stringify(wishlist));
   }, [wishlist]);
 
+  useEffect(() => {
+    localStorage.setItem("darkMode", JSON.stringify(darkMode));
+  }, [darkMode]);
+
+  // 🌙 Cambiar tema
+  const toggleTheme = () => setDarkMode(!darkMode);
+
   // ➕ Agregar producto al carrito
   const addToCart = (product) => {
-    setCart((prev) => {
-      const exists = prev.find((p) => p.id === product.id);
-      if (exists) {
-        return prev.map((p) =>
-          p.id === product.id ? { ...p, quantity: p.quantity + 1 } : p
-        );
+    setCart((prevCart) => {
+      const existing = prevCart.find((item) => item.id === product.id);
+      if (existing) {
+        if (existing.quantity < product.stock) {
+          return prevCart.map((item) =>
+            item.id === product.id
+              ? { ...item, quantity: item.quantity + 1 }
+              : item
+          );
+        }
+        return prevCart; // no pasa stock
       }
-      return [...prev, { ...product, quantity: 1 }];
+      return [...prevCart, { ...product, quantity: 1 }];
     });
   };
 
   // ➖ Disminuir cantidad
   const decreaseQuantity = (id) => {
-    setCart((prev) =>
-      prev
+    setCart((prevCart) =>
+      prevCart
         .map((item) =>
-          item.id === id
-            ? { ...item, quantity: Math.max(item.quantity - 1, 0) }
-            : item
+          item.id === id ? { ...item, quantity: item.quantity - 1 } : item
         )
         .filter((item) => item.quantity > 0)
     );
   };
 
-  // ❌ Eliminar producto del carrito
+  // ❌ Eliminar producto
   const removeFromCart = (id) => {
-    setCart((prev) => prev.filter((item) => item.id !== id));
+    setCart((prevCart) => prevCart.filter((item) => item.id !== id));
   };
 
-  // 🗑 Vaciar carrito
-  const clearCart = () => {
-    setCart([]);
-  };
+  // 🗑️ Vaciar carrito
+  const clearCart = () => setCart([]);
 
-  // ⭐ Agregar / quitar de wishlist
+  // ⭐ Toggle wishlist
   const toggleWishlist = (product) => {
-    setWishlist((prev) => {
-      const exists = prev.find((p) => p.id === product.id);
+    setWishlist((prevWishlist) => {
+      const exists = prevWishlist.find((p) => p.id === product.id);
       if (exists) {
-        return prev.filter((p) => p.id !== product.id); // quitar
+        return prevWishlist.filter((p) => p.id !== product.id);
       }
-      return [...prev, product]; // agregar
+      return [...prevWishlist, product];
     });
   };
 
   return (
-    <Router>
-      <Navbar
-        cartCount={cart.reduce((acc, i) => acc + i.quantity, 0)}
-        wishlistCount={wishlist.length}
-        setSearchTerm={setSearchTerm}
-      />
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <ProductList
-              addToCart={addToCart}
-              toggleWishlist={toggleWishlist}
-              wishlist={wishlist}
-              searchTerm={searchTerm}
-            />
-          }
-        />
-        <Route
-          path="/cart"
-          element={
-            <Cart
+    <><SupportChat />
+    <div className={darkMode ? "app dark-mode" : "app"}>
+      <Router>
+        {/* Barra superior */}
+        <Navbar
+          cartCount={cart.reduce((acc, item) => acc + item.quantity, 0)}
+          wishlistCount={wishlist.length}
+          setSearchTerm={setSearchTerm}
+          toggleTheme={toggleTheme}
+          darkMode={darkMode} />
+
+        {/* Banner solo en Home */}
+        <Routes>
+          <Route
+            path="/"
+            element={<>
+              <BannerHero />
+              <ProductList
+                addToCart={addToCart}
+                toggleWishlist={toggleWishlist}
+                wishlist={wishlist}
+                searchTerm={searchTerm} />
+            </>} />
+          <Route
+            path="/cart"
+            element={<Cart
               cart={cart}
               addToCart={addToCart}
               decreaseQuantity={decreaseQuantity}
               removeFromCart={removeFromCart}
-              clearCart={clearCart}
-            />
-          }
-        />
-        <Route
-          path="/wishlist"
-          element={
-            <Wishlist
-              wishlist={wishlist}
-              toggleWishlist={toggleWishlist}
-              addToCart={addToCart}
-            />
-          }
-        />
-      </Routes>
-    </Router>
+              clearCart={clearCart} />} />
+          <Route path="/wishlist" element={<Wishlist wishlist={wishlist} />} />
+        </Routes>
+      </Router>
+    </div></>
   );
 }
 

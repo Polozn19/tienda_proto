@@ -1,0 +1,107 @@
+/* ====== Navbar ====== */
+
+/* 🌞 Tema claro */
+.app .navbar {
+  background: #ffffff;
+  padding: 14px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.app .logo {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #3b82f6; /* azul vivo */
+  text-decoration: none;
+}
+
+.app .search-container {
+  flex: 1;
+  max-width: 400px;
+  margin: 0 20px;
+}
+
+.app .search-input {
+  width: 100%;
+  padding: 8px 14px;
+  border-radius: 20px;
+  border: 1px solid #e2e8f0;
+  outline: none;
+  font-size: 0.95rem;
+  background: #f8fafc;
+  color: #1f2937;
+  transition: box-shadow 0.3s ease, border 0.3s ease;
+}
+
+.app .search-input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 6px rgba(59,130,246,0.4);
+}
+
+.app .nav-links {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+}
+
+.app .nav-link {
+  position: relative;
+  color: #1f2937;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.app .nav-link:hover {
+  color: #3b82f6;
+}
+
+.app .badge {
+  position: absolute;
+  top: -6px;
+  right: -12px;
+  background: #3b82f6;
+  color: white;
+  font-size: 0.7rem;
+  font-weight: bold;
+  border-radius: 50%;
+  padding: 3px 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+
+/* 🌙 Tema oscuro */
+.app.dark-mode .navbar {
+  background: #1f1f1f;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.6);
+}
+
+.app.dark-mode .logo {
+  color: #bb86fc;
+}
+
+.app.dark-mode .search-input {
+  background: #2a2a2a;
+  color: #e0e0e0;
+  border: none;
+}
+
+.app.dark-mode .search-input:focus {
+  box-shadow: 0 0 8px #bb86fc;
+}
+
+.app.dark-mode .nav-link {
+  color: #e0e0e0;
+}
+
+.app.dark-mode .nav-link:hover {
+  color: #bb86fc;
+}
+
+.app.dark-mode .badge {
+  background: #bb86fc;
+}

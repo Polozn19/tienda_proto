@@ -1,22 +1,20 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import "../styles/Cart.css";
 
-function Cart({
-  cart,
-  addToCart,
-  decreaseQuantity,
-  removeFromCart,
-  clearCart,
-}) {
-  const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+function Cart({ cart, addToCart, decreaseQuantity, removeFromCart, clearCart }) {
+  // Cálculos
+  const subtotal = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+  const igv = subtotal * 0.18;
+  const total = subtotal + igv;
 
-  // Boleta imprimible (el usuario puede "Guardar como PDF" en el diálogo de impresión)
+  // Generar boleta imprimible
   const generarBoleta = () => {
     const fecha = new Date().toLocaleString();
     const rows = cart
       .map(
         (it, i) =>
-          `${i + 1}. ${it.name}  x${it.quantity}  -  S/. ${(it.price * it.quantity).toFixed(2)}`
+          `${i + 1}. ${it.name} x${it.quantity} - S/. ${(it.price * it.quantity).toFixed(2)}`
       )
       .join("<br/>");
 
@@ -26,10 +24,10 @@ function Cart({
           <title>Boleta</title>
           <style>
             body { font-family: Arial, sans-serif; padding: 20px; }
-            h1 { margin: 0 0 10px 0; }
-            .muted { color: #555; }
+            h1 { margin: 0 0 10px 0; color: #6a1b9a; }
+            .muted { color: #555; margin-bottom: 10px; }
             .line { border-top: 1px solid #ccc; margin: 10px 0; }
-            .total { font-weight: bold; font-size: 18px; }
+            .total { font-weight: bold; font-size: 18px; margin-top: 10px; }
           </style>
         </head>
         <body>
@@ -38,7 +36,9 @@ function Cart({
           <div class="line"></div>
           <div>${rows || "Sin productos"}</div>
           <div class="line"></div>
-          <div class="total">Total: S/. ${total.toFixed(2)}</div>
+          <div>Subtotal: S/. ${subtotal.toFixed(2)}</div>
+          <div>IGV (18%): S/. ${igv.toFixed(2)}</div>
+          <div class="total">Total a pagar: S/. ${total.toFixed(2)}</div>
         </body>
       </html>
     `;
@@ -63,6 +63,7 @@ function Cart({
           <div className="cart-list">
             {cart.map((item) => (
               <div className="cart-item" key={item.id}>
+                {/* Producto */}
                 <div className="cart-left">
                   <img
                     src={item.image || "/images/placeholder.png"}
@@ -72,34 +73,36 @@ function Cart({
                   <div>
                     <h3 className="cart-name">{item.name}</h3>
                     <div className="cart-price">S/. {item.price.toFixed(2)}</div>
+                    <div className="cart-stock">Stock: {item.stock}</div>
                   </div>
                 </div>
 
+                {/* Controles cantidad */}
                 <div className="qty-controls">
                   <button
                     className="qty-btn"
                     onClick={() => decreaseQuantity(item.id)}
-                    aria-label="Disminuir cantidad"
                   >
                     ➖
                   </button>
                   <span className="qty-value">{item.quantity}</span>
                   <button
                     className="qty-btn"
+                    disabled={item.quantity >= item.stock}
                     onClick={() => addToCart(item)}
-                    aria-label="Aumentar cantidad"
                   >
                     ➕
                   </button>
                 </div>
 
+                {/* Subtotal y eliminar */}
                 <div className="cart-right">
                   <div className="cart-subtotal">
                     S/. {(item.price * item.quantity).toFixed(2)}
                   </div>
                   <button
                     className="btn btn-danger"
-                    onClick={() => removeFromCart(item.id)}  
+                    onClick={() => removeFromCart(item.id)}
                   >
                     ❌
                   </button>
@@ -108,11 +111,14 @@ function Cart({
             ))}
           </div>
 
-          <div className="cart-total-row">
-            <span>Total:</span>
-            <strong>S/. {total.toFixed(2)}</strong>
+          {/* Totales */}
+          <div className="cart-summary">
+            <p>Subtotal: <strong>S/. {subtotal.toFixed(2)}</strong></p>
+            <p>IGV (18%): <strong>S/. {igv.toFixed(2)}</strong></p>
+            <p>Total: <strong>S/. {total.toFixed(2)}</strong></p>
           </div>
 
+          {/* Acciones */}
           <div className="cart-actions">
             <Link to="/" className="btn btn-ghost">🛍️ Seguir comprando</Link>
             <button className="btn btn-danger" onClick={clearCart}>

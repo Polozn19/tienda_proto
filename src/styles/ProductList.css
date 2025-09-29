@@ -1,0 +1,160 @@
+/* — Contenedor general (secciones verticales) — */
+.pl-product-list {
+  display: block;
+  padding: 28px;
+  max-width: 1200px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* cada categoría como bloque separado */
+.pl-category-block {
+  background: #0f0f0f;
+  padding: 22px;
+  border-radius: 12px;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.6);
+  margin-bottom: 64px; /* espacio grande entre bloques */
+  position: relative;
+}
+
+/* título */
+.pl-category-title {
+  font-size: 1.6rem;
+  color: #eaeaea;
+  margin: 0 0 14px 0;
+  padding-left: 8px;
+  border-left: 6px solid #7b61f9;
+}
+
+/* wrapper para fila y flechas */
+.pl-row-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* flechas */
+.pl-row-arrow {
+  position: absolute;
+  z-index: 40;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: none;
+  background: rgba(0,0,0,0.55);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+}
+
+.pl-row-arrow.left {
+  left: -18px; /* quedan fuera del contenedor, visibles */
+}
+.pl-row-arrow.right {
+  right: -18px;
+}
+.pl-row-arrow:hover {
+  transform: translateY(-2px);
+  background: rgba(123,97,249,0.9);
+}
+
+/* fila desplazable (la que contiene las tarjetas) */
+.pl-products-row {
+  display: flex;
+  gap: 18px;
+  overflow-x: auto;
+  padding: 6px 46px; /* espacio lateral para que las flechas no tapen tarjetas */
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  width: 100%;
+}
+
+/* ocultar scrollbar visual en algunos navegadores (opcional) */
+.pl-products-row::-webkit-scrollbar {
+  height: 10px;
+}
+.pl-products-row::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.08);
+  border-radius: 6px;
+}
+.pl-products-row::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* tarjeta producto */
+.pl-product-card {
+  flex: 0 0 240px; /* obliga a fila horizontal */
+  min-height: 340px;
+  background: linear-gradient(180deg,#222,#171717);
+  border-radius: 10px;
+  padding: 12px;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.6);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* imagen */
+.pl-image-wrap {
+  height: 160px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background: rgba(255,255,255,0.02);
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+.pl-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+/* texto */
+.pl-name { font-size: 1rem; color: #fff; margin: 6px 0; font-weight:700; }
+.pl-desc { font-size: 0.9rem; color:#bdbdbd; margin:0; height: 36px; overflow: hidden; }
+.pl-meta { display:flex; justify-content:space-between; align-items:center; gap:8px; margin-top:10px; }
+.pl-price { color:#b27bff; font-weight:800; }
+.pl-stock.in { color:#7be28a; }
+.pl-stock.out { color:#ff8080; }
+
+/* footer: botón añadir */
+.pl-add-btn {
+  margin-top: 10px;
+  background: linear-gradient(135deg, #7b61f9, #4a39c8);
+  color: white;
+  border: none;
+  padding: 8px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  display:flex;
+  gap:8px;
+  align-items:center;
+  justify-content:center;
+}
+.pl-add-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* wishlist */
+.pl-wishlist-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: #e0e0e0;
+}
+.pl-wishlist-btn.active { color: #ff6b81; }
+
+/* responsive: en móvil mostramos tarjetas más anchas (swipe) */
+@media (max-width: 720px) {
+  .pl-product-card { flex: 0 0 80%; min-height: 300px; }
+  .pl-row-arrow.left { left: 6px; }
+  .pl-row-arrow.right { right: 6px; }
+  .pl-products-row { padding: 6px 36px; }
+}
