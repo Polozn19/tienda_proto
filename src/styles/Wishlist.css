@@ -1,46 +1,62 @@
-/* src/components/Wishlist.css */
-.wishlist-page {
-  padding: 20px;
-  color: white;
-}
-
-.wishlist-grid {
+/* Grid para la wishlist */
+.pl-wishlist-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 16px;
+  margin-top: 20px;
 }
 
-.wishlist-card {
+/* Tarjeta más compacta para wishlist */
+.pl-wishlist-card {
   background: #1e1e1e;
-  padding: 15px;
-  border-radius: 12px;
+  border-radius: 10px;
+  padding: 10px;
   text-align: center;
-  box-shadow: 0px 2px 8px rgba(0,0,0,0.4);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+  position: relative;
 }
 
-.wishlist-card img {
-  width: 100%;
+.pl-wishlist-card img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  margin: auto;
   border-radius: 8px;
+  display: block;
 }
 
-.wishlist-actions button {
-  margin: 5px;
-  padding: 8px 12px;
-  border: none;
+.pl-wishlist-card .pl-name {
+  font-size: 0.95rem;
+  margin: 8px 0 4px;
+}
+
+.pl-wishlist-card .pl-desc {
+  font-size: 0.8rem;
+  color: #aaa;
+  margin-bottom: 6px;
+}
+
+.pl-wishlist-card .pl-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.pl-wishlist-card .pl-add-btn {
+  padding: 6px 10px;
   border-radius: 6px;
-  cursor: pointer;
+  font-size: 0.85rem;
 }
 
-.wishlist-btn {
+/* Botón para quitar (esquina superior) */
+.pl-wishlist-card .pl-wishlist-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
   background: transparent;
   border: none;
-  font-size: 1.4rem;
+  font-size: 1rem;
   cursor: pointer;
-  position: absolute;
-  top: 10px;
-  right: 10px;
-}
-
-.wishlist-btn.active {
-  color: gold;
+  color: red;
 }

@@ -13,7 +13,7 @@
   padding: 22px;
   border-radius: 12px;
   box-shadow: 0 8px 28px rgba(0,0,0,0.6);
-  margin-bottom: 64px; /* espacio grande entre bloques */
+  margin-bottom: 64px; 
   position: relative;
 }
 
@@ -26,14 +26,12 @@
   border-left: 6px solid #7b61f9;
 }
 
-/* wrapper para fila y flechas */
 .pl-row-wrapper {
   position: relative;
   display: flex;
   align-items: center;
 }
 
-/* flechas */
 .pl-row-arrow {
   position: absolute;
   z-index: 40;
@@ -61,7 +59,6 @@
   background: rgba(123,97,249,0.9);
 }
 
-/* fila desplazable (la que contiene las tarjetas) */
 .pl-products-row {
   display: flex;
   gap: 18px;
@@ -72,7 +69,6 @@
   width: 100%;
 }
 
-/* ocultar scrollbar visual en algunos navegadores (opcional) */
 .pl-products-row::-webkit-scrollbar {
   height: 10px;
 }
@@ -157,4 +153,66 @@
   .pl-row-arrow.left { left: 6px; }
   .pl-row-arrow.right { right: 6px; }
   .pl-products-row { padding: 6px 36px; }
+}
+/* Grid para la wishlist */
+.pl-wishlist-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 16px;
+  margin-top: 20px;
+}
+
+/* Tarjeta más compacta para wishlist */
+.pl-wishlist-card {
+  background: #1e1e1e;
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+  position: relative;
+}
+
+.pl-wishlist-card img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  margin: auto;
+  border-radius: 8px;
+  display: block;
+}
+
+.pl-wishlist-card .pl-name {
+  font-size: 0.95rem;
+  margin: 8px 0 4px;
+}
+
+.pl-wishlist-card .pl-desc {
+  font-size: 0.8rem;
+  color: #aaa;
+  margin-bottom: 6px;
+}
+
+.pl-wishlist-card .pl-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.pl-wishlist-card .pl-add-btn {
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+}
+
+/* Botón para quitar (esquina superior) */
+.pl-wishlist-card .pl-wishlist-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: transparent;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  color: red;
 }

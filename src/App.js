@@ -59,7 +59,7 @@ function App() {
               : item
           );
         }
-        return prevCart; // no pasa stock
+        return prevCart; // no excede stock
       }
       return [...prevCart, { ...product, quantity: 1 }];
     });
@@ -76,7 +76,7 @@ function App() {
     );
   };
 
-  // ❌ Eliminar producto
+  // ❌ Eliminar producto del carrito
   const removeFromCart = (id) => {
     setCart((prevCart) => prevCart.filter((item) => item.id !== id));
   };
@@ -96,41 +96,61 @@ function App() {
   };
 
   return (
-    <><SupportChat />
-    <div className={darkMode ? "app dark-mode" : "app"}>
-      <Router>
-        {/* Barra superior */}
-        <Navbar
-          cartCount={cart.reduce((acc, item) => acc + item.quantity, 0)}
-          wishlistCount={wishlist.length}
-          setSearchTerm={setSearchTerm}
-          toggleTheme={toggleTheme}
-          darkMode={darkMode} />
+    <>
+      <SupportChat />
+      <div className={darkMode ? "app dark-mode" : "app"}>
+        <Router>
+          {/* Barra superior */}
+          <Navbar
+            cartCount={cart.reduce((acc, item) => acc + item.quantity, 0)}
+            wishlistCount={wishlist.length}
+            setSearchTerm={setSearchTerm}
+            toggleTheme={toggleTheme}
+            darkMode={darkMode}
+          />
 
-        {/* Banner solo en Home */}
-        <Routes>
-          <Route
-            path="/"
-            element={<>
-              <BannerHero />
-              <ProductList
-                addToCart={addToCart}
-                toggleWishlist={toggleWishlist}
-                wishlist={wishlist}
-                searchTerm={searchTerm} />
-            </>} />
-          <Route
-            path="/cart"
-            element={<Cart
-              cart={cart}
-              addToCart={addToCart}
-              decreaseQuantity={decreaseQuantity}
-              removeFromCart={removeFromCart}
-              clearCart={clearCart} />} />
-          <Route path="/wishlist" element={<Wishlist wishlist={wishlist} />} />
-        </Routes>
-      </Router>
-    </div></>
+          {/* Rutas */}
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <>
+                  <BannerHero />
+                  <ProductList
+                    addToCart={addToCart}
+                    toggleWishlist={toggleWishlist}
+                    wishlist={wishlist}
+                    searchTerm={searchTerm}
+                  />
+                </>
+              }
+            />
+            <Route
+              path="/cart"
+              element={
+                <Cart
+                  cart={cart}
+                  addToCart={addToCart}
+                  decreaseQuantity={decreaseQuantity}
+                  removeFromCart={removeFromCart}
+                  clearCart={clearCart}
+                />
+              }
+            />
+            <Route
+              path="/wishlist"
+              element={
+                <Wishlist
+                  wishlist={wishlist}
+                  toggleWishlist={toggleWishlist}
+                  addToCart={addToCart}
+                />
+              }
+            />
+          </Routes>
+        </Router>
+      </div>
+    </>
   );
 }
 
